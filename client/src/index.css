@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.custom-element {
+   
+    border: 2px double transparent;
+        background-image: linear-gradient(rgb(13, 14, 33), rgb(13, 14, 33)), radial-gradient(circle at left top, rgb(1, 110, 218), rgb(217, 0, 192));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+ 
+.ql-editor{
+    min-height: 200px;
+    max-height: 200px;
+    
+    overflow-y: auto;
+ 
+}
+.quill{
+    border-radius: 10px;
+}
+.centeralignWriterIn {
+    @apply w-[95%]  md:w-[85%] ;
+}
+.boxShadow{
+     box-shadow: 2px 2px 10px rgba(225, 0, 255, 0.337);
+}
+.postimagesize {
+    width: 2.5rem;
+    height: 2.5rem;
+}
