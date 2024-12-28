@@ -84,7 +84,7 @@ const Banner = ({BBlog ,mainImgw , intro,overflowimg,maindiv , bannerImg,type}) 
         <div>
           <p className='font-medium leading-none md:leading-5 mt-2 mb-3
           '>{trancutedDesc}</p>
-          <Link to="/login" className="bg-blue-500  opacity-90 hover:bg-rose-800  text-amber-500 font-bold    rounded">
+          <Link to={`/blog?title=${encodeURIComponent(BBlog?.title)}&writerName=${BBlog?.userName}`}  className="bg-blue-500  opacity-90 hover:bg-rose-800  text-amber-500 font-bold    rounded">
           Read More...
         </Link>
         </div>

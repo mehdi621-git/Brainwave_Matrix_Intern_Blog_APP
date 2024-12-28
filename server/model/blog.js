@@ -33,7 +33,16 @@ const blogSchema = mongoose.Schema({
     },
     wPic :{
     type : String,
-    }
+    },
+    like:  [
+        {
+          userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            unique: true, // Ensure unique userId in the likes array
+          },
+        },
+      ],
 })
 const blog =  mongoose.model('posts',blogSchema)
 export default blog

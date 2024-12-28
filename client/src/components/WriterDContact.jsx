@@ -4,10 +4,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../context'
 import { contactGroup, fetchmessage } from '../utils/ContactGroup'
 import io from 'socket.io-client';
-let socket = io('http://localhost:7000', {
-  withCredentials: true,
-  transport: ["websocket"]
-});
+// let socket = io('http://localhost:7000', {
+//   withCredentials: true,
+//   transport: ["websocket"]
+// });
+const socket = io('http://localhost:7000', { withCredentials: true , autoConnect: false,});
 
 const WriterDContact = () => {
   const {perUserDetail,user} =useContext(Context)
@@ -15,9 +16,41 @@ const WriterDContact = () => {
   const [usermessage,setusermessage] =useState([])
   const [error,seterror] =useState('')
   const [flag,setflag] =useState(false)
+  const [socket, setSocket] = useState(null);
   //const [data,setdata] = useState({writer:'',sender : '' , text : ''})
   console.log(perUserDetail)
   console.log(user)
+  useEffect(() => {
+    // Initialize socket once
+    const socket = io('http://localhost:7000', {
+      withCredentials: true,
+      autoConnect: false,  // Disable auto connect to control it manually
+    });
+    setSocketInstance(socket); // Save the socket instance in state
+
+    return () => {
+      if (socket) {
+        socket.disconnect();  // Clean up socket when the component unmounts
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (socketInstance) {
+      if (!socketInstance.connected) {
+        socketInstance.connect(); // Manually connect if not already connected
+      }
+      socketInstance.emit('register', user.email);
+
+      socketInstance.on('message', (data) => {
+        setUserMessage((prevMessages) => [...prevMessages, data]);
+      });
+
+      return () => {
+        socketInstance.off('message');
+      };
+    }
+  }, [user.email, socketInstance]);
   useEffect(()=>{
     // socket.on('newMessage', (newMessage) => {
     //   console.log('Received newMessage:', newMessage);
@@ -76,15 +109,18 @@ const WriterDContact = () => {
   }
   const handleSubmit = async ()=>{
     const data = {text:message ,writer : perUserDetail.email,sender : user.email}
-  
-    const res = await contactGroup(data);
-    setflag(!flag)
-    console.log("the messages are",res)
-     if(res.status ==500){
-        seterror(res.data.msg)
-      }else if(res.status != 200){
-        seterror(res.message)
-      }
+    console.log("e,aim",data)
+    
+      socket.emit("message", data);
+    
+  //  const res = await contactGroup(data);
+  //   setflag(!flag)
+  //   console.log("the messages are",res)
+  //    if(res.status ==500){
+  //       seterror(res.data.msg)
+  //     }else if(res.status != 200){
+  //       seterror(res.message)
+  //     }
   }
   return (
     <div className=' w-full  md:p-6 p-4 '> 

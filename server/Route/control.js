@@ -3,8 +3,8 @@ import { SavingAndVerifyingGAuth, SavingAndVerifyingM, verifyingG, verifyingM } 
 import upload from '../utils/upload.js'
 import { UploadImage , getImage } from '../connection/uploadImage.js';
 import { authorization } from '../utils/authorization.js';
-import { postTheBlog } from '../connection/BlogPosting.js';
-import { fetchingAllBlogs } from '../connection/fetchblogs.js';
+import { addLike, postTheBlog } from '../connection/BlogPosting.js';
+import { fetchingAllBlogs, GetBlogforReading } from '../connection/fetchblogs.js';
 import { fetchingWriterCards, fetchingWriters } from '../connection/writersFetch.js';
 import { buildingGroupsForContact, GettingContactMessages } from '../connection/contactGroup.js';
 const route = express.Router();
@@ -27,6 +27,9 @@ route.get('/writercards/:id',fetchingWriterCards)
 route.post('/groupContact',buildingGroupsForContact)
 
 route.get('/getConversation',GettingContactMessages)
+route.get('/fetchBlog',GetBlogforReading)
+route.post('/addlike',addLike)
+
 //return route
 //}
 export default route;

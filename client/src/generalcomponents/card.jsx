@@ -9,11 +9,12 @@ const tranculatedText =(html,length)=>{
   return plainText.length > length ? plainText.slice(0, length) + '...' : plainText;
 }
 const Card = ({blogElements,sliceCount,writerimg}) => {
+
   const sanitizedDesc = DOMPurify.sanitize(blogElements?.desc || '');
  const trancutedDesc = tranculatedText(sanitizedDesc,sliceCount)
- console.log("cards",blogElements)
- const url = blogElements.picture ? blogElements.picture : "https://via.placeholder.com/150"
- const wurl = blogElements.wPic? blogElements.wPic : "https://via.placeholder.com/150"
+ console.log("cards at",blogElements)
+ const url = blogElements.picture ? blogElements.picture : blogElements.writerPic ? blogElements.writerPic : "https://via.placeholder.com/150"
+ const wurl = blogElements.wPic? blogElements.wPic :  "https://via.placeholder.com/150"
 
   return (
    
@@ -27,6 +28,9 @@ const Card = ({blogElements,sliceCount,writerimg}) => {
         
         <div className="font-bold text-xl mb-2 text-cyan-200">
             {blogElements?.title?.length > 30 ?blogElements?.title.slice(0,30) + '...' : blogElements?.title }
+            {
+              blogElements.name && <p className='text-sm'>{blogElements.name}</p>
+            }
             </div>
         {/* <div className="dark:text-gray-400 text-base break-words overflow-hidden text-stone-950">
             {blogElements?.desc.length > 100 ?blogElements?.desc.slice(0,150) + '...' : blogElements?.desc }
@@ -41,9 +45,10 @@ const Card = ({blogElements,sliceCount,writerimg}) => {
        
       </div>
       <div className="px-[2px] pt-3 pb-2 mb-3">
-        <Link to={`/blog?title=${blogElements?.title}&writerid=${blogElements?._id}`} className="bg-rose-500  opacity-40 hover:bg-rose-300  text-red-900 font-bold py-2 md:px-4 px-2  rounded">
+        {!blogElements.writerPic &&
+        <Link   to={`/blog?title=${encodeURIComponent(blogElements?.title)}&writerName=${blogElements?.userName}`} className="bg-rose-500  opacity-40 hover:bg-rose-300  text-red-900 font-bold py-2 md:px-4 px-2  rounded">
           Read More...
-        </Link>
+        </Link>}
       { writerimg && <div className='mt-3 flex blogElementss-center gap-3'>
             <img src={wurl} alt="placeholder " className='w-6 h-6 rounded-full object-cover' />
             <h2 className='dark:text-white font-bold text-sm text-black'>{blogElements?.userName}</h2>

@@ -1,19 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from '../generalcomponents/card'
 import { fetchAllWriters } from '../utils/fetchwriters'
 
 const AllWriters = () => {
-
+   const [allwrit, setallwrit ] = useState([])
     useEffect(()=>{
-        getallWriter=async()=>{
-          res = await fetchAllWriters()
+      const getallWriter=async()=>{
+         const res = await fetchAllWriters()
+         setallwrit(res.data.writers)
           console.log("The All Writers are",res.data)
         }
         getallWriter()
-    })
+    },[])
   return (
-    <div>
-        <Card></Card>
+    <div className='grid md:grid-cols-5 m-9 grid-cols-3'>
+    
+       {
+        allwrit.map((item,index)=> <Card key={index} blogElements={item}></Card>)
+       }
+      
     </div>
   )
 }

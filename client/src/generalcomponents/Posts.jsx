@@ -33,7 +33,7 @@ const handleCategorySearch =(categoryName)=>{
       
     }}>
          <WriterArea></WriterArea>
-         <p className = 'dark:text-white font-bold text-xs'>Visit all Writers </p>
+         <Link to = '/AllWriters' className = 'dark:text-white font-bold text-xs'>Visit all Writers </Link>
         <div>
           
             <h2 className="font-bold hover:cursor-pointer" onClick={()=>setnewBlogsSearch(allBlogs)}>All Categories</h2>

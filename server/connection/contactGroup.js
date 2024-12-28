@@ -1,7 +1,27 @@
 import group from "../model/contactGroup.js"
 
 export const buildingGroupsForContact =async (req,res)=>{
-    console.log(req.body)
+   console.log("the res is",req.body)
+    
+    // Process the data...
+    // Example: Interact with a database or perform some action with the received data
+
+    // Simulate database operation or processing
+    // const newGroup = {
+    //   sender,
+    //   writer,
+    //   text,
+    // };
+    // console.log('Processed group:', newGroup);
+
+    // // Respond to client
+    // return res.status(200).json({ msg: 'Saved successfully' });
+
+    //   } catch (err) {
+    //     console.error("Error in backend route:", err);
+    //     res.status(500).json({ error: 'Internal Server Error' });
+    //   }
+      
      try {
           const ConGroup =await  group.findOne({members : {$all : [req.body.sender,req.body.writer]}})
           console.log("ocn",ConGroup)
@@ -30,6 +50,8 @@ export const buildingGroupsForContact =async (req,res)=>{
 
 export const GettingContactMessages =async(req,res)=>{
     //const {sender ,writer} = req.params.data
+   console.log(req.query)
+
     
     console.log(req.query)
     try {

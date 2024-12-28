@@ -22,6 +22,8 @@ import SettingBasic from "./generalcomponents/settingBasic"
 import SettingEdu from "./generalcomponents/SettingEdu"
 import Settingabout from "./generalcomponents/settingabout"
 import SettingSkill from "./generalcomponents/settingSkill"
+import AllWriters from "./components/allWriters"
+import ReadingArea from "./components/ReadingArea"
 
 const PrivateRoute =({isAuthenticated})=>{
 
@@ -72,7 +74,7 @@ const App =()=> {
            
           
             <Route path = '/write' element = {<WritingArea></WritingArea>}></Route>
-            <Route path = '/blog' element ={<PerBlog></PerBlog>}></Route>
+            <Route path = '/blog' element ={<ReadingArea></ReadingArea>}></Route>
             <Route path="/writerDetail/:id" element = {<WriterDetail/>}>
                   <Route index   element = {<WriterDHome></WriterDHome>}></Route>
                   <Route path="Home"  element = {<WriterDHome></WriterDHome>}></Route>
@@ -91,6 +93,7 @@ const App =()=> {
  <Route path = '/' element = {<PrivateRoute isAuthenticated={isAuthenticated}/>}>
             {/* Add elements which to want to render only when user is loged in */}
             <Route path ='/home' index element ={<Home></Home>}></Route>
+            <Route path="/AllWriters" element={<AllWriters></AllWriters>}></Route>
             <Route path = '/setting' element ={<Setting></Setting>}>
                 <Route index element ={<SettingBasic></SettingBasic>}></Route>
                 <Route path = 'Basic' element ={<SettingBasic></SettingBasic>}></Route>
